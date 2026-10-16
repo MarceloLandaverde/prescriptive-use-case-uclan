@@ -2,7 +2,7 @@
 Repository containing main code for a prescriptive use case which is to be presented at the UCLAN
 
 # Content
-In this repository you will find two files:
+In this repository you will find the following files:
 - utils.py:
   This file contains all the needed functions to build the prescriptive analytics use case.
 - app.py:
