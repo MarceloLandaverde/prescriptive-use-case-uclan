@@ -1,0 +1,54 @@
+In the following file we will briefly document the pseudo mathematical modeling for the TSP. This includes the following:
+
+- Sets & Indices
+- Parameters (Data)
+- Decision Variables (DV)
+- Objective Function (OF)
+- Constraints 
+-----------------------------------------------------------------------------
+Algorithm: TSP
+Goal: Minimize distance
+-----------------------------------------------------------------------------
+Sets
+The set of locations or cities (nodes)
+N = {'Location_1', 'Location_2', 'Location_3'..., 'Location_n'}
+
+-----------------------------------------------------------------------------
+Params
+d_{i,j}: The distance between nodes 'i','j' that belong to N
+
+-----------------------------------------------------------------------------
+DV:
+x_{i,j} ∈ {0,1}
+1 if going from Stop i to Stop j happened
+
+Sequence labeling
+∀ 'i' ∈ N\{1}:
+	u_{i} ∈ Z+
+
+-----------------------------------------------------------------------------
+OF
+MIN (∑_i∈N ∑_{j∈N, j≠i} * (x_{i,j} * d_{i,j}))
+-----------------------------------------------------------------------------
+Constraints:
+How many times must the salesman leave stop 'i' to go to some stop 'j'
+∀ 'i' ∈ N:
+	∑_{j∈N, j≠i} * x_{i,j} = 1
+	
+How many times must the salesman arrive at stop 'i' from some stop 'j'?
+∀ 'j' ∈ N:
+	∑_{i∈N, i≠j} * x_{i,j} = 1
+
+MTZ Formulation (Miller-Tucker-Zemlin) to avoid subtours
+∀ 'i', 'j' ∈ N /{1}, i≠j:
+	u_{j} - u_{i} >= 1 - n(1-x_{i,j})
+
+
+Alternatively we can use the following notation (actually my favorite one): 
+
+∀ 'i'∈ N /{1}:
+	∀ 'j'∈ N /{1}, i≠j:
+		u_{j} - u_{i} >= 1 - n(1-x_{i,j})
+
+		
+
