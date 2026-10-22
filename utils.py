@@ -5,6 +5,7 @@ from sklearn.cluster import AgglomerativeClustering, KMeans
 from sklearn.metrics import silhouette_score
 import pulp
 import time
+import plotly.express as px
 import plotly.graph_objects as go
 
 ###############################################################################
@@ -1077,6 +1078,45 @@ def plot_generic_comparison(
     return fig
 
 
+
+def compare_route_distances(routed_batches_df, routed_batches_df_fifo):
+    """
+    Compares the total route distance between the optimized pipeline 
+    and the FIFO baseline using a Plotly bar chart.
+    """
+    # Calculate total distances
+    opt_distance = routed_batches_df['Route_Distance_Meters'].sum()
+    fifo_distance = routed_batches_df_fifo['Route_Distance_Meters'].sum()
+    
+    # Build a comparison DataFrame
+    df_plot = pd.DataFrame({
+        'Method': ['Optimized Pipeline (Clustering + TSP)', 'FIFO Baseline'],
+        'Total Distance (m)': [opt_distance, fifo_distance]
+    })
+    
+    # Create Plotly bar chart
+    fig = px.bar(
+        df_plot,
+        x='Method',
+        y='Total Distance (m)',
+        color='Method',
+        title='Warehouse Routing Efficiency: Optimized vs. FIFO',
+        text='Total Distance (m)',
+        color_discrete_sequence=['#1f77b4', '#aec7e8']
+    )
+    
+    # Format layout for presentation quality
+    fig.update_traces(texttemplate='%{text:.1f} m', textposition='outside')
+    fig.update_layout(
+        xaxis_title='Routing Strategy',
+        yaxis_title='Total Distance (Meters)',
+        template='plotly_white',
+        showlegend=False,
+        uniformtext_minsize=8, 
+        uniformtext_mode='hide'
+    )
+    
+    return fig
 
 
 
