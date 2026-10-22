@@ -308,9 +308,17 @@ if st.button(
     total_time_saved_min = benchmark_df["Time_Saved_Minutes"].sum()
 
     with st.expander("See Optimization Results"):
-         col_6, col_7 = st.columns(2)
+         col_6, col_7, col_8 = st.columns(3)
 
          with col_6:
+            with st.container(border=True):
+                 fig_3 = compare_route_distances(
+                      routed_batches_df=all_routed_batches_df["optimized"], 
+                      routed_batches_df_fifo=all_routed_batches_df["fifo"]
+                )
+                 st.plotly_chart(fig_3)
+         
+         with col_7:
               with st.container(border=True):
                 st.write("##### --- Overall Fleet Evaluation ---")
                 #st.write(f"Best Batch Type: {winner}")
@@ -325,9 +333,9 @@ if st.button(
                     f"({total_time_saved_min/60:.2f} hours)"
                 )
 
-         with col_7:
+         with col_8:
             with st.container(border=True):
-                 fig_3 = plot_generic_comparison(
+                 fig_4 = plot_generic_comparison(
                     df_primary=benchmark_df,
                     primary_col="Optimal_TSP_Dist_Meters",
                     baseline_col="Monte_Carlo_Baseline_Meters",
@@ -337,7 +345,7 @@ if st.button(
                     title="Optimized Distances (TSP Solver) vs. Non-Optimized Distances (Monte Carlo Baseline Distance)",
                 )
 
-                 st.plotly_chart(fig_3)
+                 st.plotly_chart(fig_4)
                  
     # Run post-processing
     batch_summary_df, pick_instructions_df = create_batch_pick_instructions(
