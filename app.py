@@ -322,14 +322,14 @@ if st.button(
               with st.container(border=True):
                 st.write("##### --- Overall Fleet Evaluation ---")
                 #st.write(f"Best Batch Type: {winner}")
-                st.write(f"Best Batch Type: {'Optimized Cluster Batches' if winner == 'optimized' else 'Optimized FIFO Batches'}")
+                st.write(f"Best Batch Type: {'Optimized Spatial Batches' if winner == 'optimized' else 'Optimized FIFO Batches'}")
                 st.write(f"Total Batches Processed: {len(benchmark_df)}")
-                st.write(f"Un-optimized Walking Distance: {total_base_dist:,.2f} meters")
+                st.write(f"Unoptimized Walking Distance: {total_base_dist:,.2f} meters")
                 st.write(f"Optimized TSP Distance: {total_opt_dist:,.2f} meters")
-                st.write(f"Total Distance Saved: {total_dist_saved:,.2f} meters")
-                st.success(f"Overall Fleet Efficiency Gain: {overall_pct_saved:.2f}%")
+                st.write(f"Total Distance Saved -Estimation-: {total_dist_saved:,.2f} meters")
+                st.success(f"Overall Fleet Efficiency Gain -Estimation-: {overall_pct_saved:.2f}%")
                 st.success(
-                    f"Total Picker Time Saved: {total_time_saved_min:.2f} minutes "
+                    f"Total Picker Time Saved -Estimation-: {total_time_saved_min:.2f} minutes "
                     f"({total_time_saved_min/60:.2f} hours)"
                 )
 
@@ -339,7 +339,7 @@ if st.button(
                     df_primary=benchmark_df,
                     primary_col="Optimal_TSP_Dist_Meters",
                     baseline_col="Monte_Carlo_Baseline_Meters",
-                    primary_label="Opt. Clusters + TSP",
+                    primary_label="Opt. Spatial Batches + TSP",
                     baseline_label="Monte Carlo Random Path",
                     metric_name="Distance (Mts.)",
                     title="Optimized Distances (TSP Solver) vs. Non-Optimized Distances (Monte Carlo Baseline Distance)",
