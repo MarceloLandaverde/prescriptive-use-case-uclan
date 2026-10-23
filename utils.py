@@ -1090,7 +1090,7 @@ def compare_route_distances(routed_batches_df, routed_batches_df_fifo):
     
     # Build a comparison DataFrame
     df_plot = pd.DataFrame({
-        'Method': ['Optimized Pipeline (Clustering + TSP)', 'FIFO Baseline'],
+        'Method': ['Opt. Spatial Batches + TSP', 'Opt. FIFO Batches'],
         'Total Distance (m)': [opt_distance, fifo_distance]
     })
     
@@ -1100,7 +1100,7 @@ def compare_route_distances(routed_batches_df, routed_batches_df_fifo):
         x='Method',
         y='Total Distance (m)',
         color='Method',
-        title='Warehouse Routing Efficiency: Optimized vs. FIFO',
+        title='Batch Routing Efficiency: Opt. Spatial Batches vs. Opt. FIFO Batches',
         text='Total Distance (m)',
         color_discrete_sequence=['#1f77b4', '#aec7e8']
     )
@@ -1108,7 +1108,7 @@ def compare_route_distances(routed_batches_df, routed_batches_df_fifo):
     # Format layout for presentation quality
     fig.update_traces(texttemplate='%{text:.1f} m', textposition='outside')
     fig.update_layout(
-        xaxis_title='Routing Strategy',
+        xaxis_title='Batch Routing Strategy',
         yaxis_title='Total Distance (Meters)',
         template='plotly_white',
         showlegend=False,
