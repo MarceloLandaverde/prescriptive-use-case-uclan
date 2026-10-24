@@ -453,10 +453,13 @@ def capacity_bin_packing(
 def fifo_bin_packing(
     orders_df: pd.DataFrame, max_cbm: float = 100.0, max_kg: float = 75.0
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Applies capacity-constrained bin packing using a pure FIFO (First-In, First-
+    """Applies capacity-constrained bin packing to a baseline control group 
+    using volume-descending sorting heuristics (First-Fit Decreasing) under 
+    a single dummy cluster. 
 
-    Out) sequence by routing all orders through the standard capacity engine
-    under a single dummy cluster.
+    Note: While serving as the baseline comparison group, orders are processed 
+    through the standard capacity bin-packing engine to ensure a fair, 
+    optimized-capacity control group rather than a naive chronological queue.
     """
     # 1. Create a deterministic FIFO order matrix sorted by Order_ID
     unique_orders = sorted(orders_df["Order_ID"].unique())
