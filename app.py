@@ -205,15 +205,16 @@ if st.button(
     
 if st.session_state.batches_df is not None and st.session_state.batches_df_fifo is not None:
     with st.expander("Optimized Spatial Batches"):
-         st.caption("These are batches that are grouped based on items that are physically close, thus minimizing the distances.")
+         st.caption("These are batches that are grouped by geographic proximity.")
+         st.caption("They are optimized to ensure maximum container utilization.")
          st.dataframe(st.session_state.batches_df, hide_index=True)
 
     with st.expander("Optimized FIFO Batches"):
-        st.caption("These are batches that are grouped based on the arrival time of orders")
+        st.caption("These are batches that are optimized to ensure maximum container utilization.")
         st.dataframe(st.session_state.batches_df_fifo, hide_index=True)
 
     with st.expander("Utilization Insights"):
-        st.caption("These are batches that are grouped based on xyz")
+        st.caption("Compare utilization.")
 
         col_4, col_5 = st.columns(2)
 
@@ -326,10 +327,10 @@ if st.button(
                 st.write(f"Total Batches Processed: {len(benchmark_df)}")
                 st.write(f"Unoptimized Walking Distance: {total_base_dist:,.2f} meters")
                 st.write(f"Optimized TSP Distance: {total_opt_dist:,.2f} meters")
-                st.write(f"Total Distance Saved -Estimation-: {total_dist_saved:,.2f} meters")
-                st.success(f"Overall Fleet Efficiency Gain -Estimation-: {overall_pct_saved:.2f}%")
+                st.write(f"Total Distance Saved -Estimation: {total_dist_saved:,.2f} meters")
+                st.success(f"Overall Fleet Efficiency Gain -Estimation: {overall_pct_saved:.2f}%")
                 st.success(
-                    f"Total Picker Time Saved -Estimation-: {total_time_saved_min:.2f} minutes "
+                    f"Total Picker Time Saved -Estimation: {total_time_saved_min:.2f} minutes "
                     f"({total_time_saved_min/60:.2f} hours)"
                 )
 
@@ -355,6 +356,11 @@ if st.button(
         depot_name="Location_1",
     )
 
+    with st.expander("Monte Carlo Random Path - A Note"):
+        st.write("1) The Random Walk Test: We simulate a picker grabbing items in random order 100 times to represent a typical, un-optimized workflow.")
+        st.write("2) The Benchmark: We average the distance of those random walks to create a fair, realistic baseline.")
+        st.write("3) The Proof: We compare our smart route against this baseline to clearly show the distance and labor time saved.")
+    
     with st.expander("See Benchmark"):
         st.dataframe(batch_summary_df, hide_index=True)
 
